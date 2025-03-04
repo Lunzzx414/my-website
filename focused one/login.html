@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gtu.css">
+    <title>Registrasi</title>
+</head>
+<body>
+    <div class="popup-container">
+        <div class="popup">
+            <h2>Halaman Registrasi</h2>
+            <input id="username" type="text" placeholder="Masukkan Username" required>
+            <input id="password" type="password" placeholder="Masukkan Password" required>
+            <button onclick="register()">Daftar</button>
+        </div>
+    </div>
+
+    <script>
+        function register() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username && password) {
+                localStorage.setItem("user", username);
+                localStorage.setItem("password", password); // Simpan password (hanya contoh, tidak aman!)
+                window.location.href = "new one.html"; // Redirect ke halaman utama
+            } else {
+                alert("Harap isi semua field!");
+            }
+        }
+
+
+    </script>
+</body>
+</html>
