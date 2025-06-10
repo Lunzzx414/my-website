@@ -5,32 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="gtu.css">
     <title>Registrasi</title>
+    <style>
+        /* Tambahan untuk animasi centang */
+        #notifPopup {
+            display: none;
+            position: fixed;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.2);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        #notifBox {
+            background: #fff;
+            color: #175378;
+            border-radius: 12px;
+            padding: 32px 24px;
+            min-width: 320px;
+            max-width: 90vw;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            font-size: 1.1em;
+        }
+        .checkmark-popup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkmark-popup .checkmark {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            animation: pop 0.5s;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+.logout-btn:hover, .logout-btn:focus {
+    background: linear-gradient(90deg, #dd2476 0%, #ff512f 100%);
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 8px 32px rgba(255,81,47,0.25);
+    filter: brightness(1.1);
+}
+.logout-btn:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+}
+</style>
+    </style>
 </head>
 <body>
     <div class="popup-container">
         <div class="popup">
             <h2>Halaman Registrasi</h2>
-            <input id="username" type="text" placeholder="Masukkan Username" required>
-            <input id="password" type="password" placeholder="Masukkan Password" required>
-            <button onclick="register()">Daftar</button>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        function register() {
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+    <!-- Notif Popup -->
+    <div id="notifPopup">
+        <div id="notifBox"></div>
+    </div>
 
-            if (username && password) {
-                localStorage.setItem("user", username);
-                localStorage.setItem("password", password); // Simpan password (hanya contoh, tidak aman!)
-                window.location.href = "new one.html"; // Redirect ke halaman utama
-            } else {
-                alert("Harap isi semua field!");
-            }
+   <script>
+    function showLoginCheckmark() {
+        const notifPopup = document.getElementById('notifPopup');
+        const notifBox = document.getElementById('notifBox');
+        notifBox.innerHTML = `
+            <div class="checkmark-popup">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle cx="26" cy="26" r="25" fill="none" stroke="#28a745" stroke-width="3"/>
+                    <path fill="none" stroke="#28a745" stroke-width="4" d="M14 27l8 8 16-16"/>
+                </svg>
+                <div style="font-size:1.2em; color:#28a745; margin-bottom:8px;">Login Berhasil!</div>
+            </div>
+        `;
+        notifPopup.style.display = 'flex';
+        setTimeout(() => {
+            notifPopup.style.display = 'none';
+            window.location.href = "new one.html";
+        }, 1200);
+    }
+
+    function showLoginError(message) {
+        const notifPopup = document.getElementById('notifPopup');
+        const notifBox = document.getElementById('notifBox');
+        notifBox.innerHTML = `
+            <div class="checkmark-popup">
+                <svg width="64" height="64" viewBox="0 0 52 52">
+                    <circle cx="26" cy="26" r="25" fill="none" stroke="#e74c3c" stroke-width="3"/>
+                    <line x1="16" y1="16" x2="36" y2="36" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="36" y1="16" x2="16" y2="36" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <div style="font-size:1.2em; color:#e74c3c; margin-bottom:8px;">${message}</div>
+            </div>
+        `;
+        notifPopup.style.display = 'flex';
+        setTimeout(() => {
+            notifPopup.style.display = 'none';
+        }, 1200);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        localStorage.setItem("user", username);
+
+        // Check credentials
+        if (username === "admin" && password === "123") {
+            showLoginCheckmark();
+        } else {
+            showLoginError("Username atau password salah!");
         }
-
-
+    });
+</script>
+<script>
+function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("password");
+    window.location.href = "login.html";
+}
+</script>
     </script>
 </body>
 </html>

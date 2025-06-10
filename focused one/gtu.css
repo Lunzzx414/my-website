@@ -1,6 +1,9 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: rgb(160, 131, 131);
+    background: 
+        linear-gradient(to right, rgba(65,23,85,0.7), rgba(122,63,63,0.7)),
+        url('teh.jpg') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +25,7 @@ body {
 }
 
 .popup {
-    background: rgba(54, 43, 43, 0.95);
+    background: rgba(153, 121, 121, 0.95);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
@@ -30,6 +33,9 @@ body {
     text-align: center;
     animation: fadeIn 0.5s ease-in-out;
 }
+
+
+
 
 @keyframes fadeIn {
     from {
@@ -43,7 +49,7 @@ body {
 }
 
 h2 {
-    color: #b71414;
+    color: #4e3a35;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -78,25 +84,5 @@ button {
 
 button:hover {
     background: linear-gradient(to right, #dd2476, #ff512f);
-    transform: scale(1.05);
-}
-
-
-.logout-btn {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #ede6e6;
-    color: rgb(136, 30, 30);
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.logout-btn:hover {
-    background-color: #444;
     transform: scale(1.05);
 }
